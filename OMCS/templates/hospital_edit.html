@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block content %}
+<!-- The modal dialog box -->
+<div id="dialog" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5);z-index: 999;">
+    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(255,255,255,0.9); border-radius: 10px; border: 2px solid black; padding: 20px; font-family: courier;">
+      <!-- Move the content of './messages.html' inside the modal dialog box -->
+      {% include './messages.html' %}
+      <!-- Add a close button to the modal dialog box -->
+      <button onclick="closeDialog()">Close</button>
+    </div>
+  </div>
+  
+  <!-- JavaScript code to open and close the modal dialog box -->
+  <script>
+    function openDialog() {
+      document.getElementById("dialog").style.display = "block";
+    }
+    function closeDialog() {
+      document.getElementById("dialog").style.display = "none";
+    }
+    // Check if message content exists before showing the dialog box
+    {% if messages %}
+    window.onload = function() {
+      openDialog();
+    }
+    {% endif %}
+  </script>
+        <title>Document</title>
+</head>
+<body>
+    
+
+
+    <h1>Edit hospital</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Update</button>
+    </form>
+{% endblock %}
+
+</body>
+</html>

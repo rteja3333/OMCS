@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dictionary Table</title>
+  </head>
+  <body>
+    <table>
+      <thead>
+        <tr>
+          {% for key, value in dictionaries.0.items %}
+          <th>{{ key }}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for dictionary in dictionaries %}
+        <tr>
+          {% for key, value in dictionary.items %}
+          <td>{{ value }}</td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>

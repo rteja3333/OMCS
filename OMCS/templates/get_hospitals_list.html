@@ -1,0 +1,406 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      /* Define the grid container */
+      .grid-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
+        grid-gap: 40px;
+      }
+
+      /* Style the table within each grid cell */
+      .grid-cell table {
+        margin-left: 10px;
+        margin-right: 10px;
+        border-collapse: collapse;
+        width: 100%;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        border: 6px solid #333;
+        transition: all 0.3s ease-in-out;
+      }
+
+      .grid-cell th,
+      .grid-cell td {
+        padding: 10px;
+        border: 4px solid #ddd;
+      }
+
+      .grid-cell th {
+        font-weight: bold;
+      }
+
+      /* Style alternate rows */
+      .grid-cell tbody tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+
+      /* Style table headers */
+      .grid-cell thead {
+        background-color: #333;
+        color: #fff;
+      }
+
+      .grid-cell thead th {
+        padding: 12px;
+        border: 2px solid #333;
+      }
+
+      /* Table hover effect */
+      .grid-cell:hover table {
+        transform: scale(1.08);
+      }
+
+      /* Row hover effect */
+      .grid-cell tbody tr:hover {
+        background-color: #ababab;
+      }
+
+      .animate-charcter
+{
+   text-transform: uppercase;
+  background-image: linear-gradient(
+    -225deg,
+    #231557 0%,
+    #44107a 29%,
+    #ff1361 67%,
+    #fff800 100%
+  );
+  padding-top: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-size: auto auto;
+  background-clip: border-box;
+  background-size: 200% auto;
+  color: #fff;
+  background-clip: text;
+  text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textclip 2s linear infinite;
+  display: inline-block;
+      font-size: 80px;
+}
+.center {
+	text-align: center;
+}
+
+
+@keyframes textclip {
+  to {
+    background-position: 200% center;
+  }
+}
+.animated-heading {
+  opacity: 0; /* Set the opacity of the element to 0 */
+  animation: fadeIn 2s ease-in-out forwards; /* Add the fade in animation */
+}
+.animated-heading h1 {
+  font-size: 70px; /* adjust the value as needed */
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0; /* Set the opacity to 0 at the start of the animation */
+  }
+  100% {
+    opacity: 1; /* Set the opacity to 1 at the end of the animation */
+  }
+}
+
+/***********Menu BAR STYLING****************/
+.btn {
+ position: relative;
+ font-size: 17px;
+ text-transform: uppercase;
+ text-decoration: none;
+ padding: 1em 2.5em;
+ display: inline-block;
+ border-radius: 6em;
+ transition: all .2s;
+ border: none;
+ font-family: inherit;
+ font-weight: 500;
+ color: rgb(255, 255, 255);
+ background-color: rgb(54, 52, 52);
+}
+
+.btn:hover {
+ transform: translateY(-3px);
+ box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+.btn:active {
+ transform: translateY(-1px);
+ box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
+}
+
+.btn::after {
+ content: "";
+ display: inline-block;
+ height: 100%;
+ width: 100%;
+ border-radius: 100px;
+ position: absolute;
+ top: 0;
+ left: 0;
+ z-index: -1;
+ transition: all .4s;
+}
+
+.btn::after {
+ background-color: #fff;
+}
+
+.btn:hover::after {
+ transform: scaleX(1.4) scaleY(1.6);
+ opacity: 0;
+}
+
+
+@import url('https://fonts.googleapis.com/css?family=Libre+Caslon+Text:400,700&display=swap');
+
+
+.hamburger-icon {
+  position: absolute;
+  z-index: 3;
+  top: 5vh;
+  left: 5vw;
+  padding-bottom: 2vh;
+}
+
+.hamburger-icon span {
+  height: 5px;
+  width: 40px;
+  background-color: black;
+  display: block;
+  margin: 5px 0px 5px 0px;
+  transition: 0.7s ease-in-out;
+  transform: none;
+}
+
+#openmenu:checked ~ .menu-pane {
+  left: -5vw;
+  transform: translateX(-5vw);
+}
+
+#openmenu:checked ~ .body-text {
+display: none;
+}
+
+#openmenu:checked ~ .hamburger-icon span:nth-of-type(2) {
+  transform: translate(0%, 175%) rotate(-45deg);
+  background-color: rgb(11, 11, 11);
+  z-index: 4;
+}
+
+#openmenu:checked ~ .hamburger-icon span:nth-of-type(3) {
+  transform: rotate(45deg);
+  background-color: rgb(14, 14, 14);
+  color: black;
+  z-index: 4;
+}
+
+#openmenu:checked ~ .hamburger-icon span:nth-of-type(1) {
+  opacity: 0;
+  z-index: 3;
+}
+
+#openmenu:checked ~ .hamburger-icon span:nth-of-type(4) {
+  opacity: 0;
+  z-index: 3;
+}
+
+div.menu-pane {
+    background-color: rgba(255, 255, 255, 0.8);
+
+  /* background-color: rgba(117, 117, 117, 0.9); semi-transparent grey */
+  position: fixed;
+  transform: translateX(-105vw);
+  transform-origin: (0, 0);
+  width: 50vw;
+  height: 100%;
+  transition: 0.6s ease-in-out;
+  z-index: 2;
+  overflow-y: auto;
+  border-radius: 5%;
+}
+
+.menu-pane p {
+  color: black;
+  font-size: 0.6em;
+}
+
+.menu-pane nav {
+  padding: 10%;
+}
+
+.menu-links li, a, span {
+      transition: 0.5s ease-in-out;
+}
+
+.menu-pane ul {
+  padding: 10%;
+  display: inline-block;
+}
+
+.menu-pane li {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-left: 10px;
+    font-size: 2em;
+}
+
+
+.menu-pane li:first-child {
+  font-size: 1.3em;
+  margin-left: -10px;
+}
+
+
+.menu-links li a {
+  color: #000;
+  /* color: rgb(255, 247, 24); */
+  text-decoration: none;
+}
+
+
+.menu-links li:hover a {
+  color: #0bf8e8;
+}
+
+.menu-links li:first-child:hover a {
+  color: black;  
+  background-color: #FFAB91;
+}
+
+#QC-info {
+  background-color: #FFAB91;
+    border: 2px solid;
+  border-color: #FFAB91;
+display: block;
+  opacity: 0;
+  
+}
+
+.menu-links li:first-child:hover #QC-info {
+opacity: 1;
+}
+
+.menu-links li:first-child:hover #DC-info {
+opacity: 1;
+}
+
+#DC-info {
+  background-color: #FFAB91;
+    border: 2px solid;
+  border-color: #FFAB91;
+display: block;
+  opacity: 0;
+}
+
+
+.menu-links li:first-child a {
+  padding: 5px;
+}
+
+
+
+input.hamburger-checkbox {
+  position: absolute;
+  z-index: 3;
+  top: 5vh;
+  left: 5vw;
+  width: 10vw;
+  opacity: 0;
+  height: 6vh;
+}
+/********************************************/
+
+    </style>
+  </head>
+
+  
+  <body>
+    <!-- *************************menu bar html -->
+    <div class="menu-container">
+  
+      <input type="checkbox" id="openmenu" class="hamburger-checkbox">
+      
+      <div class="hamburger-icon">
+        <label for="openmenu" id="hamburger-label">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </label>    
+      </div>
+    
+        <div class="menu-pane">
+          
+          <nav>
+            <ul>
+
+            </ul>
+             <ul class="menu-links">
+              <a href="/home">
+              <button class="btn" >Home</button>
+            </a>
+            <br><br><br>
+            <a href="/home">
+              <button class="btn" >Contact Us</button>
+            </a>
+            <br><br><br>
+            <a href="/home">
+              <button class="btn" >About Us</button>
+            </a>
+            </ul>
+            
+            
+          </nav>
+        </div>
+
+    </div>
+<!-- **************MENU BAR HTML *************-->
+
+
+  <div class="container">
+    <div class="center">
+
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <h3 class="animate-charcter"> OMCS</h3>
+      </div>
+    </div>
+  </div>
+  </div>
+  <h1 class="animated-heading center" >Hospitals List</h1>
+
+
+    <div class="grid-container">
+      {% for hospital in hospitals_list %}
+      <div class="grid-cell">
+        
+        <table>
+          <caption>{{ hospital.name }}</caption>
+          <thead>
+            <tr>
+              <th>Key</th>
+              <th>Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for key, value in hospital.items %}
+            <tr>
+              <td>{{ key }}</td>
+              <td>{{ value }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% endfor %}
+    </div>
+  </body>
+</html>

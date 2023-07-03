@@ -1,0 +1,748 @@
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+/* Overlay styles */
+.overlay {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Modal styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fefefe;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 400px;
+}
+
+.close {
+  color: #aaa;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+}
+
+button:hover {
+  background-color: #3e8e41;
+}
+
+/* Hide scrollbar */
+body.modal-open {
+  overflow: hidden;
+}
+
+
+    
+/***********Menu BAR STYLING****************/
+.btn {
+ position: relative;
+ font-size: 17px;
+ text-transform: uppercase;
+ text-decoration: none;
+ padding: 1em 2.5em;
+ display: inline-block;
+ border-radius: 6em;
+ transition: all .2s;
+ border: none;
+ font-family: inherit;
+ font-weight: 500;
+ color: rgb(255, 255, 255);
+ background-color: rgb(54, 52, 52);
+}
+
+.btn:hover {
+ transform: translateY(-3px);
+ box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+.btn:active {
+ transform: translateY(-1px);
+ box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
+}
+
+.btn::after {
+ content: "";
+ display: inline-block;
+ height: 100%;
+ width: 100%;
+ border-radius: 100px;
+ position: absolute;
+ top: 0;
+ left: 0;
+ z-index: -1;
+ transition: all .4s;
+}
+
+.btn::after {
+ background-color: #fff;
+}
+
+.btn:hover::after {
+ transform: scaleX(1.4) scaleY(1.6);
+ opacity: 0;
+}
+
+
+@import url('https://fonts.googleapis.com/css?family=Libre+Caslon+Text:400,700&display=swap');
+
+
+.hamburger-icon {
+  position: absolute;
+  z-index: 3;
+  top: 5vh;
+  left: 5vw;
+  padding-bottom: 2vh;
+}
+
+.hamburger-icon span {
+  height: 5px;
+  width: 40px;
+  background-color: black;
+  display: block;
+  margin: 5px 0px 5px 0px;
+  transition: 0.7s ease-in-out;
+  transform: none;
+}
+
+#openmenu:checked ~ .menu-pane {
+  left: -5vw;
+  transform: translateX(-5vw);
+}
+
+#openmenu:checked ~ .body-text {
+display: none;
+}
+
+#openmenu:checked ~ .hamburger-icon span:nth-of-type(2) {
+  transform: translate(0%, 175%) rotate(-45deg);
+  background-color: rgb(11, 11, 11);
+  z-index: 4;
+}
+
+#openmenu:checked ~ .hamburger-icon span:nth-of-type(3) {
+  transform: rotate(45deg);
+  background-color: rgb(14, 14, 14);
+  color: black;
+  z-index: 4;
+}
+
+#openmenu:checked ~ .hamburger-icon span:nth-of-type(1) {
+  opacity: 0;
+  z-index: 3;
+}
+
+#openmenu:checked ~ .hamburger-icon span:nth-of-type(4) {
+  opacity: 0;
+  z-index: 3;
+}
+
+div.menu-pane {
+    background-color: rgba(255, 255, 255, 0.8);
+
+  /* background-color: rgba(117, 117, 117, 0.9); semi-transparent grey */
+  position: fixed;
+  transform: translateX(-105vw);
+  transform-origin: (0, 0);
+  width: 50vw;
+  height: 100%;
+  transition: 0.6s ease-in-out;
+  z-index: 2;
+  overflow-y: auto;
+  border-radius: 5%;
+}
+
+.menu-pane p {
+  color: black;
+  font-size: 0.6em;
+}
+
+.menu-pane nav {
+  padding: 10%;
+}
+
+.menu-links li, a, span {
+      transition: 0.5s ease-in-out;
+}
+
+.menu-pane ul {
+  padding: 10%;
+  display: inline-block;
+}
+
+.menu-pane li {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-left: 10px;
+    font-size: 2em;
+}
+
+
+.menu-pane li:first-child {
+  font-size: 1.3em;
+  margin-left: -10px;
+}
+
+
+.menu-links li a {
+  color: #000;
+  /* color: rgb(255, 247, 24); */
+  text-decoration: none;
+}
+
+
+.menu-links li:hover a {
+  color: #0bf8e8;
+}
+
+.menu-links li:first-child:hover a {
+  color: black;  
+  background-color: #FFAB91;
+}
+
+#QC-info {
+  background-color: #FFAB91;
+    border: 2px solid;
+  border-color: #FFAB91;
+display: block;
+  opacity: 0;
+  
+}
+
+.menu-links li:first-child:hover #QC-info {
+opacity: 1;
+}
+
+.menu-links li:first-child:hover #DC-info {
+opacity: 1;
+}
+
+#DC-info {
+  background-color: #FFAB91;
+    border: 2px solid;
+  border-color: #FFAB91;
+display: block;
+  opacity: 0;
+}
+
+
+.menu-links li:first-child a {
+  padding: 5px;
+}
+
+
+
+input.hamburger-checkbox {
+  position: absolute;
+  z-index: 3;
+  top: 5vh;
+  left: 5vw;
+  width: 10vw;
+  opacity: 0;
+  height: 6vh;
+}
+/********************************************/
+/* *******************OMC******** */
+.animate-charcter
+{
+   text-transform: uppercase;
+  background-image: linear-gradient(
+    -225deg,
+    #231557 0%,
+    #44107a 29%,
+    #ff1361 67%,
+    #fff800 100%
+  );
+  margin-bottom: 10px;
+margin-top: 10px;
+  background-size: auto auto;
+  background-clip: border-box;
+  background-size: 200% auto;
+  color: #fff;
+  background-clip: text;
+  text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textclip 2s linear infinite;
+  display: inline-block;
+      font-size: 80px;
+}
+.center {
+	text-align: center;
+}
+
+@keyframes textclip {
+  to {
+    background-position: 200% center;
+  }
+}
+
+
+.wave-group {
+  position: relative;
+}
+
+.wave-group .input {
+  font-size: 16px;
+  padding: 10px 10px 10px 5px;
+  display: block;
+  width: 200px;
+  border: none;
+  border-bottom: 1px solid #515151;
+  background: transparent;
+}
+
+.wave-group .input:focus {
+  outline: none;
+}
+
+.wave-group .label {
+  color: #999;
+  font-size: 18px;
+  font-weight: normal;
+  position: absolute;
+  pointer-events: none;
+  left: 5px;
+  top: 10px;
+  display: flex;
+}
+
+.wave-group .label-char {
+  transition: 0.2s ease all;
+  transition-delay: calc(var(--index) * .05s);
+}
+
+.wave-group .input:focus ~ label .label-char,
+.wave-group .input:valid ~ label .label-char {
+  transform: translateY(-20px);
+  font-size: 14px;
+  color: #5264AE;
+}
+/* ***************omcs ********** */
+
+
+
+/********************PROFILECARD****************************/
+.profile-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 100vh;
+  background-color: #ffffff;
+}
+
+
+.profile-card {
+  width: 500px;
+  height: 600px;
+  background-color: #ffffff;
+  border-radius: 20px;
+  background-image:  linear-gradient( 135deg, #65FDF0 10%, #1D6FA3 100%);
+  /* linear-gradient( 108deg,  rgba(2,93,145,1) 17.3%, rgba(0,156,222,1) 77.6% ); */
+  box-shadow: 0 5px 35px rgba(0, 0, 0, 0.8);
+  overflow: hidden;
+  position: relative;
+  background-position: top;
+  background-size: 100% 100%;
+}
+
+.profile-picture {
+  width: 150px;
+  height: 150px;
+  background-image: url('https://www.google.co.in/imgres?imgurl=https%3A%2F%2Fplay-lh.googleusercontent.com%2F6UgEjh8Xuts4nwdWzTnWH8QtLuHqRMUB7dp24JYVE2xcYzq4HA8hFfcAbU-R-PC_9uA1&tbnid=i7MoRy5G8Xd9xM&vet=12ahUKEwiH6Mv5i6D-AhX993MBHfVMA-EQMygBegUIARDhAQ..i&imgrefurl=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdev%3Fid%3D5700313618786177705%26hl%3Den_US%26gl%3DUS&docid=x_hf6-7_nBDr_M&w=512&h=512&q=google&hl=en-GB&ved=2ahUKEwiH6Mv5i6D-AhX993MBHfVMA-EQMygBegUIARDhAQ');
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%;
+  border: 5px solid #fff;
+  box-shadow: 0 0 0 5px #e6e6e6;
+  margin: -75px auto 0;
+  background-color: #ffffff;
+}
+
+.profile-data {
+  padding: 20px;
+  font-size: 1.2em;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+    font-family:  Courier;
+}
+
+th, td {
+  padding: 10px 0;
+  text-align: left;
+  padding-left: 20px;
+  margin-left: 15px;
+  border-bottom: 1px solid #ccc;
+}
+
+th {
+  color: #fefefe;
+  font-weight: normal;
+  
+}
+
+td {
+  font-weight: bold;
+}
+
+/* dynamic effects and animations */
+.profile-picture:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 0 5px #ddd, 0 0 20px rgba(0, 0, 0, 0.3);
+  transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+ 
+}
+
+
+.profile-card::before {
+  content: '';
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(179, 179, 179, 0.2);
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+.profile-card:hover {
+  transform: scale(1.05);
+  transition: transform 0.5s ease-in-out;
+}
+
+.profile-card:hover::before {
+  opacity: 1;
+}
+
+.profile-card:hover::after {
+  /* transform: translateY(-10px);
+  transition: transform 0.5s ease-in-out; */
+  /* transform: scale(1.1);  */
+    /* transition: transform 0.5s ease-in-out; */
+    transform: scale(1.1);  
+    transition: transform 0.5s ease-in-out;
+}
+/************************************PROFILECARD******************/
+/******************EDIT PROFILE INPUT************************/
+
+/******************EDIT PROFILE INPUT************************/
+
+  </style>
+  
+</head>
+<body>
+
+  {% extends 'base.html' %}
+  {% block content %}
+  <!-- <table>
+    <tr>
+        <th>Name</th>
+        <td>{{ my_doctor.name }}</td>
+    </tr>
+    <tr>
+        <th>Age</th>
+        <td>{{ my_doctor.age }}</td>
+    </tr>
+    <tr>
+        <th>Phone Number</th>
+        <td>{{ my_doctor.phone_number }}</td>
+    </tr>
+    <tr>
+        <th>Email</th>
+        <td>{{ my_doctor.email }}</td>
+    </tr>
+    <tr>
+        <th>Address</th>
+        <td>{{ my_doctor.address }}</td>
+    </tr>
+    <tr>
+        <th>Experience</th>
+        <td>{{ my_doctor.experience }}</td>
+    </tr>
+</table> -->
+
+<body>
+    <div class="container">
+      <div class="center">			<div class="row">
+        <div class="col-md-12 text-center">
+        <h4 class="animate-charcter"> OMCS</h4>
+        </div>
+      </div>
+    </div>
+      </div>
+      <!-- *************************menu bar html -->
+      <div class="menu-container">
+    
+        <input type="checkbox" id="openmenu" class="hamburger-checkbox">
+        
+        <div class="hamburger-icon">
+          <label for="openmenu" id="hamburger-label">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </label>    
+        </div>
+      
+          <div class="menu-pane">
+            
+            <nav>
+              <ul>
+  
+              </ul>
+               <ul class="menu-links">
+                <a href="/afterpatientlogin">
+                <button class="btn" >Home</button>
+              </a>
+              <br><br><br>
+              <a href="/show_patient_info">
+                <button class="btn" >View Profile</button>
+              </a>
+              <br><br><br>
+              <a href="/change_patient_info">
+                <button class="btn" >Change Profile</button>
+              </a>
+              <br><br><br>
+              <!-- <button class="btn" onclick="showLogoutDialog()">Logout</button> -->
+  
+              </ul>
+              
+              
+            </nav>
+          </div>
+  
+      </div>
+  <!-- **************MENU BAR HTML *************-->
+  <br><br>
+  <h2  style="font-family:Courier;left: 50%;margin-top: 10px; font-size: 30px;text-align: center;">-------- EDIT YOUR PROFILE --------</h2>
+  <br>
+      <br>
+
+  <form method="POST" action="{% url 'change_patient_info' %}">
+    {% csrf_token %}
+    {{ form.as_p }} 
+    <button type="submit">Save Changes</button>
+  </form>
+  
+  <style>
+    form {
+      width: 30%;
+      margin: 0 auto;
+      border: 5px solid black;
+      padding: 20px;
+      text-align: center;
+      font-weight: bold;
+      font-size: auto;
+      font-family: 'Courier New', Courier, monospace;
+      border-radius: 10px;
+      background-image:  linear-gradient( 135deg, #65FDF0 10%, #1D6FA3 100%);
+    }
+  
+    form input[type="text"],
+    form input[type="email"],
+    form input[type="password"],
+    form input[type="number"],
+    form textarea {
+      border: none;
+      border-bottom: 1px solid black;
+      outline: none;
+      background-color: transparent;
+
+    }
+  </style>
+  
+<!-- 
+<div class="profile-wrapper">
+
+        </div>
+    {% endblock %}
+    <div class="profile-card">
+        <br><br><br><br><br><br>
+      <div class="profile-picture"></div>
+      <div class="profile-data"> -->
+
+        <!-- <br>
+        <table>
+          <tr>
+            <th>Name</th>
+            <td>{{ my_doctor.name }}</td>
+          </tr>
+          <tr>
+            <th>Age</th>
+            <td>{{ my_doctor.age }}</td>
+          </tr>
+          <tr>
+            <th>Phone Number</th>
+            <td>{{ my_doctor.phone_number }}</td>
+          </tr>
+          <tr>
+            <th>Email</th>
+            <td>{{ my_doctor.email }}</td>
+          </tr>
+          <tr>
+            <th>Address</th>
+            <td>{{ my_doctor.address }}</td>
+          </tr>
+          <tr>
+            <th>Experience</th>
+            <td>{{ my_doctor.experience }}</td>
+          </tr>
+        </table> -->
+<!-- 
+  /* form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form textarea {
+  border: none;
+  border-bottom: 1px solid black;
+  outline: none;
+  
+} */
+/* 
+</style>
+</div>
+</div> */ -->
+
+</body>
+<body>
+    <div id="logoutModal" class="modal">
+        <div class="modal-content">
+          <span class="close" onclick="hideLogoutDialog()">&times;</span>
+          <h3>Are you sure you want to log out?</h3>
+          <form id="logoutForm" method="post" action="/patientlogout/">
+            {% csrf_token %}
+            <button type="submit">Confirm Logout</button>
+            <button type="button" onclick="hideLogoutDialog()">Cancel</button>
+          </form>
+        </div>
+      </div>
+    <!-- 
+    <script>
+        function showLogoutDialog() {
+          document.getElementById("logoutModal").style.display = "block";
+        }
+    
+        function hideLogoutDialog() {
+          document.getElementById("logoutModal").style.display = "none";
+        }
+      </script> -->
+      <script>
+        function showLogoutDialog() {
+        document.getElementById("logoutModal").style.display = "block";
+        document.body.classList.add("modal-open");
+      }
+      
+      function hideLogoutDialog() {
+        document.getElementById("logoutModal").style.display = "none";
+        document.body.classList.remove("modal-open");
+      }
+    </script>  
+    <script>
+        var circleButton = document.getElementById("circle-button");
+        var dropdown = document.getElementById("dropdown");
+    
+        circleButton.addEventListener("click", function() {
+            if (dropdown.style.display === "none") {
+                dropdown.style.display = "block";
+            } else {
+                dropdown.style.display = "none";
+            }
+        });
+    </script>
+
+
+    </body>
+  </head>
+
+  </html>
+ 
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Default Title{% endblock %}</title>
+    
+</head>
+<body>
+    <div class="container">
+        <h2>Your Profile</h2>
+            <table>
+                <tr>
+                    <th>Name:</th>
+                    <td>{{ my_doctor.name }}</td>
+                </tr>
+                <tr>
+                    <th>Age:</th>
+                    <td>{{ my_doctor.age }}</td>
+                </tr>
+                <tr>
+                    <th>Phone Number:</th>
+                    <td>{{ my_doctor.phone_number }}</td>
+                </tr>
+                <tr>
+                    <th>Email:</th>
+                    <td>{{ my_doctor.email }}</td>
+                </tr>
+                <tr>
+                    <th>Address:</th>
+                    <td>{{ my_doctor.address }}</td>
+                </tr>
+                <tr>
+                    <th>Experience:</th>
+                    <td>{{ my_doctor.experience }}</td>
+                </tr>
+            </table>
+    </div>
+
+</body>
+</html> -->

@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Doctor</title>
+<!-- The modal dialog box -->
+<div id="dialog" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5);z-index: 999;">
+  <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(255,255,255,0.9); border-radius: 10px; border: 2px solid black; padding: 20px; font-family: courier;">
+    <!-- Move the content of './messages.html' inside the modal dialog box -->
+    {% include './messages.html' %}
+    <!-- Add a close button to the modal dialog box -->
+    <button onclick="closeDialog()">Close</button>
+  </div>
+</div>
+
+<!-- JavaScript code to open and close the modal dialog box -->
+<script>
+  function openDialog() {
+    document.getElementById("dialog").style.display = "block";
+  }
+  function closeDialog() {
+    document.getElementById("dialog").style.display = "none";
+  }
+  // Check if message content exists before showing the dialog box
+  {% if messages %}
+  window.onload = function() {
+    openDialog();
+  }
+  {% endif %}
+</script>
+   <style>
+/*    
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  margin-top: 10%;
+  padding: 20px;
+  border: 1px solid #888;
+  border-radius: 10px;
+  width: 80%;
+  text-align: center;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+button {
+  transition: background-color 0.5s ease;
+}
+
+button:hover {
+  background-color: #ddd;
+}
+
+body.modal-open {
+  background-color: rgba(0, 0, 0, 0.2);
+} */
+/* Overlay styles */
+.overlay {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Modal styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fefefe;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 400px;
+}
+
+.close {
+  color: #aaa;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+}
+
+button:hover {
+  background-color: #3e8e41;
+}
+
+/* Hide scrollbar */
+body.modal-open {
+  overflow: hidden;
+}
+
+
+    
+/***********Menu BAR STYLING****************/
+.btn {
+ position: relative;
+ font-size: 17px;
+ text-transform: uppercase;
+ text-decoration: none;
+ padding: 1em 2.5em;
+ display: inline-block;
+ border-radius: 6em;
+ transition: all .2s;
+ border: none;
+ font-family: inherit;
+ font-weight: 500;
+ color: rgb(255, 255, 255);
+ background-color: rgb(54, 52, 52);
+}
+
+.btn:hover {
+ transform: translateY(-3px);
+ box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+.btn:active {
+ transform: translateY(-1px);
+ box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
+}
+
+.btn::after {
+ content: "";
+ display: inline-block;
+ height: 100%;
+ width: 100%;
+ border-radius: 100px;
+ position: absolute;
+ top: 0;
+ left: 0;
+ z-index: -1;
+ transition: all .4s;
+}
+
+.btn::after {
+ background-color: #fff;
+}
+
+.btn:hover::after {
+ transform: scaleX(1.4) scaleY(1.6);
+ opacity: 0;
+}
+
+
+@import url('https://fonts.googleapis.com/css?family=Libre+Caslon+Text:400,700&display=swap');
+
+
+.hamburger-icon {
+  position: absolute;
+  z-index: 3;
+  top: 5vh;
+  left: 5vw;
+  padding-bottom: 2vh;
+}
+
+.hamburger-icon span {
+  height: 5px;
+  width: 40px;
+  background-color: black;
+  display: block;
+  margin: 5px 0px 5px 0px;
+  transition: 0.7s ease-in-out;
+  transform: none;
+}
+
+#openmenu:checked ~ .menu-pane {
+  left: -5vw;
+  transform: translateX(-5vw);
+}
+
+#openmenu:checked ~ .body-text {
+display: none;
+}
+
+#openmenu:checked ~ .hamburger-icon span:nth-of-type(2) {
+  transform: translate(0%, 175%) rotate(-45deg);
+  background-color: rgb(11, 11, 11);
+  z-index: 4;
+}
+
+#openmenu:checked ~ .hamburger-icon span:nth-of-type(3) {
+  transform: rotate(45deg);
+  background-color: rgb(14, 14, 14);
+  color: black;
+  z-index: 4;
+}
+
+#openmenu:checked ~ .hamburger-icon span:nth-of-type(1) {
+  opacity: 0;
+  z-index: 3;
+}
+
+#openmenu:checked ~ .hamburger-icon span:nth-of-type(4) {
+  opacity: 0;
+  z-index: 3;
+}
+
+div.menu-pane {
+    background-color: rgba(255, 255, 255, 0.8);
+
+  /* background-color: rgba(117, 117, 117, 0.9); semi-transparent grey */
+  position: fixed;
+  transform: translateX(-105vw);
+  transform-origin: (0, 0);
+  width: 50vw;
+  height: 100%;
+  transition: 0.6s ease-in-out;
+  z-index: 2;
+  overflow-y: auto;
+  border-radius: 5%;
+}
+
+.menu-pane p {
+  color: black;
+  font-size: 0.6em;
+}
+
+.menu-pane nav {
+  padding: 10%;
+}
+
+.menu-links li, a, span {
+      transition: 0.5s ease-in-out;
+}
+
+.menu-pane ul {
+  padding: 10%;
+  display: inline-block;
+}
+
+.menu-pane li {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-left: 10px;
+    font-size: 2em;
+}
+
+
+.menu-pane li:first-child {
+  font-size: 1.3em;
+  margin-left: -10px;
+}
+
+
+.menu-links li a {
+  color: #000;
+  /* color: rgb(255, 247, 24); */
+  text-decoration: none;
+}
+
+
+.menu-links li:hover a {
+  color: #0bf8e8;
+}
+
+.menu-links li:first-child:hover a {
+  color: black;  
+  background-color: #FFAB91;
+}
+
+#QC-info {
+  background-color: #FFAB91;
+    border: 2px solid;
+  border-color: #FFAB91;
+display: block;
+  opacity: 0;
+  
+}
+
+.menu-links li:first-child:hover #QC-info {
+opacity: 1;
+}
+
+.menu-links li:first-child:hover #DC-info {
+opacity: 1;
+}
+
+#DC-info {
+  background-color: #FFAB91;
+    border: 2px solid;
+  border-color: #FFAB91;
+display: block;
+  opacity: 0;
+}
+
+
+.menu-links li:first-child a {
+  padding: 5px;
+}
+
+
+
+input.hamburger-checkbox {
+  position: absolute;
+  z-index: 3;
+  top: 5vh;
+  left: 5vw;
+  width: 10vw;
+  opacity: 0;
+  height: 6vh;
+}
+/********************************************/
+/* *******************OMC******** */
+.animate-charcter
+{
+   text-transform: uppercase;
+  background-image: linear-gradient(
+    -225deg,
+    #231557 0%,
+    #44107a 29%,
+    #ff1361 67%,
+    #fff800 100%
+  );
+  margin-bottom: 10px;
+margin-top: 10px;
+  background-size: auto auto;
+  background-clip: border-box;
+  background-size: 200% auto;
+  color: #fff;
+  background-clip: text;
+  text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textclip 2s linear infinite;
+  display: inline-block;
+      font-size: 80px;
+}
+.center {
+	text-align: center;
+}
+
+@keyframes textclip {
+  to {
+    background-position: 200% center;
+  }
+}
+
+
+.wave-group {
+  position: relative;
+}
+
+.wave-group .input {
+  font-size: 16px;
+  padding: 10px 10px 10px 5px;
+  display: block;
+  width: 200px;
+  border: none;
+  border-bottom: 1px solid #515151;
+  background: transparent;
+}
+
+.wave-group .input:focus {
+  outline: none;
+}
+
+.wave-group .label {
+  color: #999;
+  font-size: 18px;
+  font-weight: normal;
+  position: absolute;
+  pointer-events: none;
+  left: 5px;
+  top: 10px;
+  display: flex;
+}
+
+.wave-group .label-char {
+  transition: 0.2s ease all;
+  transition-delay: calc(var(--index) * .05s);
+}
+
+.wave-group .input:focus ~ label .label-char,
+.wave-group .input:valid ~ label .label-char {
+  transform: translateY(-20px);
+  font-size: 14px;
+  color: #5264AE;
+}
+/* ***************omcs ********** */
+ /******BOOK appointment**************/
+ .button1{
+  background:#1AAB8A;
+  color:#fff;
+  border:none;
+  position:relative;
+  height:60px;
+  font-size:1.6em;
+  padding:0 2em;
+  margin-top: 40px;
+  cursor:pointer;
+  transition:800ms ease all;
+  outline:none;
+}
+.button1:hover{
+  background:#fff;
+  color:#1AAB8A;
+}
+.button1:before,button:after{
+  content:'';
+  position:absolute;
+  top:0;
+  right:0;
+  height:2px;
+  width:0;
+  background: #1AAB8A;
+  transition:400ms ease all;
+}
+.button1:after{
+  right:inherit;
+  top:inherit;
+  left:0;
+  bottom:0;
+}
+.button1:hover:before,button:hover:after{
+  width:100%;
+  transition:800ms ease all;
+}
+/* *****************book appointments****** */
+ 
+</style>
+</head>
+<body>
+  <!-- ----------------------------------------- -->
+  <!-- <h1>Welcome {{info.name}} </h1>
+  <h2>Your id is {{info.id}} </h2> -->
+  <!-- ---------------------------------------- -->
+
+  <div class="container">
+    <div class="center">			<div class="row">
+      <div class="col-md-12 text-center">
+      <h4 class="animate-charcter"> OMCS</h4>
+      </div>
+    </div>
+  </div>
+    </div>
+    <!-- *************************menu bar html -->
+    <div class="menu-container">
+  
+      <input type="checkbox" id="openmenu" class="hamburger-checkbox">
+      
+      <div class="hamburger-icon">
+        <label for="openmenu" id="hamburger-label">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </label>    
+      </div>
+    
+        <div class="menu-pane">
+          
+          <nav>
+            <ul>
+
+            </ul>
+             <ul class="menu-links">
+              <a href="/afterpatientlogin">
+              <button class="btn" >Home</button>
+            </a>
+            <br><br><br>
+            <a href="/show_patient_info">
+              <button class="btn" >View Profile</button>
+            </a>
+            <br><br><br>
+            <a href="/change_patient_info">
+              <button class="btn" >Change Profile</button>
+            </a>
+            <br><br><br>
+            <button class="btn" onclick="showLogoutDialog()">Logout</button>
+
+            </ul>
+            
+            
+          </nav>
+        </div>
+
+    </div>
+<!-- **************MENU BAR HTML *************-->
+
+<div style="display: flex; justify-content: center; align-items: center;">
+  <a href="/book_appointment/">
+    <button class="button1" >Book Appointment</button>
+  <!-- </a>
+</div>
+  <form method="post" action="/ask_doctor_date_time/" style="margin-top: 10px;">
+      {% csrf_token %}
+      
+
+      <label for="date" style="font-size: 30px; font-family: Courier;" > Select Date:</label>
+      <input type="date" id="date" name="date" >
+<br><br><br><br>      <br><br><br><br>
+
+      <label for="slot" style="font-family:Courier;left: 50%;margin-top: 10px; font-size: 30px;">Select Slot:</label>
+      <select id="slot" name="slot">
+        <option value='morning'>Morning</option>
+        <option value='afternoon'>Afternoon</option>
+        <option value='evening'>Evening</option>
+      </select>
+    <br><br>
+  <div style="display: flex; justify-content: center; align-items: center;">
+      <button type="submit" >Show</button>
+  </div>
+
+    </form>       -->
+
+
+</body>
+</html>
+
+</head>
+<body>
+<div id="logoutModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="hideLogoutDialog()">&times;</span>
+      <h3>Are you sure you want to log out?</h3>
+      <form id="logoutForm" method="post" action="/patientlogout/">
+        {% csrf_token %}
+        <button type="submit">Confirm Logout</button>
+        <button type="button" onclick="hideLogoutDialog()">Cancel</button>
+      </form>
+    </div>
+  </div>
+<!-- 
+<script>
+    function showLogoutDialog() {
+      document.getElementById("logoutModal").style.display = "block";
+    }
+
+    function hideLogoutDialog() {
+      document.getElementById("logoutModal").style.display = "none";
+    }
+  </script> -->
+  <script>
+    function showLogoutDialog() {
+    document.getElementById("logoutModal").style.display = "block";
+    document.body.classList.add("modal-open");
+  }
+  
+  function hideLogoutDialog() {
+    document.getElementById("logoutModal").style.display = "none";
+    document.body.classList.remove("modal-open");
+  }
+</script>  
+<script>
+    var circleButton = document.getElementById("circle-button");
+    var dropdown = document.getElementById("dropdown");
+
+    circleButton.addEventListener("click", function() {
+        if (dropdown.style.display === "none") {
+            dropdown.style.display = "block";
+        } else {
+            dropdown.style.display = "none";
+        }
+    });
+</script>
+</body>
+</html>
+
+
+
+

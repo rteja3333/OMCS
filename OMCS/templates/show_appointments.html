@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=`, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap">
+
+    <title>Document</title>
+    <style>
+        body {
+        font-family: 'Roboto', sans-serif;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+
+            text-align: center;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            border: 1px solid #ddd;
+        }
+        tbody tr:hover {
+        /* background-color: #f5f5f5; */
+        background-color: #e2e2e2;
+        cursor: pointer;
+        }
+        /* tr:nth-child(even) {
+            background-color: #d0d0d0;
+        } */
+
+        th {
+            background-color: #333;
+            color: white;
+        }
+        h3 {
+            text-align: center;
+            background-color: #e1dcdc;
+            padding: 20px;
+        }
+        button {
+            display: block;
+            margin: 0 auto;
+            font-size: larger;
+            box-shadow: 0 0 5px rgba(0,0,0,.2);
+        }
+        .container {
+            padding: 10px;
+            font-size: 20px;
+            background-color: #f8f9fa;
+            box-shadow: 0 0 10px rgba(0,0,0,.1);
+        }
+        input,select{
+            font-size: large;
+        }
+    </style>
+        
+</head>
+<body>
+    {% extends 'base.html' %}
+
+{% block content %}
+<h3>List of patients on date {{inf.d}} and slot {{inf.s}}:</h3>
+<div class="container">
+    <h4>List of pending patients</h4>
+    <form method="post" action='/show_appointments/' onsubmit="return validateForm();">
+        {% csrf_token %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Patient ID</th>
+                    <th>Patient Medical Description</th>
+                    <th>Appointment Preference</th>
+                    <th>Select Appointment Time</th>
+                    <th>Select Appointment Type</th>
+                    <th>Message For Patient</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for booked in b %} 
+                <tr>
+                    <td>{{ booked.patientid }}</td>
+                    <td>{{ booked.description }}</td>
+                    <td>{{ booked.appointment_preference }}</td>
+                    <td>
+                        <input type="time" id="time_{{ booked.bookingid }}" name="time_{{ booked.bookingid }}" data-id="{{ booked.bookingid }}" />
+                    </td>
+                    <td>
+                        <select id="option_{{ booked.bookingid }}" name="option_{{ booked.bookingid }}" onchange="validateInput(this)">
+                            <option value='no option taken'>None</option>
+                            <option value='offline'>Offline</option>
+                            <option value='online'>Online</option>  
+                            <option value='decline'>Decline</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" id="msg_{{ booked.bookingid }}" name="msg_{{ booked.bookingid }}"  /> 
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br><br>
+        <button type="submit">Save</button>
+        <br><br>
+    </form>
+    <h4>List of approved patients</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>Patient ID</th>
+                <th>Description</th>
+                <!-- <th>Appointment Preference</th> -->
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booked in completed_appointments %} 
+            <tr>
+                <td>{{ booked.patientid }}</td>
+                <td>{{ booked.description }}</td>
+                <!-- <td>{{ booked.appointment_preference }}</td> -->
+                <td>{{ booked.status }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+</div>
+<script>
+    
+function validateForm() {
+  var options = document.querySelectorAll("select[name^='option_']");
+  for (var i = 0; i < options.length; i++) {
+    var option = options[i];
+    var time = document.getElementById("time_" + option.dataset.id);
+    if (option.value !== 'no option taken' && time.value === '') {
+      alert("Please select a time for all appointments.");
+      return false;
+    }
+  }
+  return true;
+}
+
+function validateInput(select) {
+  var time = document.getElementById("time_" + select.dataset.id);
+  if (select.value !== 'no option taken' && time.value === '') {
+    alert("Please select a time for this appointment.");
+    select.value = 'no option taken';
+  }
+}
+</script>
+    
+    {% endblock %}
+</body>
+</html>
