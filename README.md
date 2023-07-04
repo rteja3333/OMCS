@@ -92,21 +92,21 @@ The file structure of the OMCS application is as follows:
 
 OMCS/
 ├── OMCS/  
-│ ├── templates/  
-│ ├── admin.py  
-│ ├── apps.py    
-│ ├── forms.py    
-│ ├── models.py    
-│ ├── serialisers.py     
-│ ├── tests.py    
-│ ├── urls.py    
-│ ├── views.py    
-│ └── ...     
+│  ├── templates/  
+│  ├── admin.py  
+│  ├── apps.py    
+│  ├── forms.py    
+│  ├── models.py    
+│  ├── serialisers.py     
+│  ├── tests.py    
+│  ├── urls.py    
+│  ├── views.py    
+│  └── ...     
 ├── SE_project/     
-│ ├── asgi.py     
-│ ├── settings.py     
-│ ├── urls.py     
-│ ├── wsgi.py    
+│  ├── asgi.py     
+│  ├── settings.py     
+│  ├── urls.py     
+│  ├── wsgi.py    
 ├── db.sqlite3    
 ├── manage.py        
 ├── requirements.txt    
