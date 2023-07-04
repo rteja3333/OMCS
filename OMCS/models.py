@@ -20,7 +20,7 @@ class hospital(models.Model):
     pincode_regex = RegexValidator(regex=r'^[0-9]{6}$', message="Enter a valid Indian pincode.")
     pincode = models.CharField(max_length=6, validators=[pincode_regex])
     description=models.CharField(max_length=100)
-    isdelete = models.BooleanField(default=False)
+    # isdelete = models.BooleanField(default=False)
 
 
 class doctor(models.Model):
@@ -119,6 +119,7 @@ class bookedappointments(models.Model):
     doctorid = models.PositiveIntegerField()
     patientid = models.PositiveIntegerField()
     date=models.DateField()
+    time=models.TimeField(default='00:00')
     slot=models.CharField(max_length=100,default="")
     status=models.CharField(max_length=100,default='no action taken')
     description=models.CharField(max_length=100,default="")

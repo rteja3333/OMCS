@@ -65,7 +65,7 @@ def homepage(request):
 
 def get_hospitals_list(request):
     queryset = hospital.objects.all()
-    hospitals_list = [{'id': obj.id,'name':obj.name,'email':obj.email,'address':obj.address,'phone_number':obj.phone_number,'description':obj.description,'pincode':obj.pincode,'isdelete':obj.isdelete} for obj in queryset]
+    hospitals_list = [{'id': obj.id,'name':obj.name,'email':obj.email,'address':obj.address,'phone_number':obj.phone_number,'description':obj.description,'pincode':obj.pincode} for obj in queryset]
     return render(request,'get_hospitals_list.html',{'hospitals_list':hospitals_list})
 
 def addnewdoctor(request):
@@ -500,7 +500,7 @@ def select_doctor(request):
         appointment_preference=request.POST.get('appointment_preference', '')
         doctor_id=request.POST.get('selected_doctor_id', '')
         patient_id=request.session.get('patient_id')
-        new_booking=bookedappointments(date=date,slot=slot,doctorid=doctor_id,patientid=patient_id,description=description,appointment_preference=appointment_preference)
+        new_booking=bookedappointments(date=date,slot=slot,doctorid=doctor_id,patientid=patient_id,description=description,appointment_preference=appointment_preference,time='00:00')
         new_booking.save()
         if appointments.objects.filter(doctorid=doctor_id,date=date):
             doctor_appointments=appointments.objects.get(doctorid=doctor_id,date=date)
@@ -566,6 +566,7 @@ def show_appointments(request):
                 msg = request.POST.get('msg_'+str(b.bookingid)) 
                   # print('Booking ID:', b.bookingid, 'Selected option:', option)
                 b.status = option 
+                b.time=time
                 b.save()
                 patientid = b.patientid 
                 pat = patient.objects.get(id=patientid) 
@@ -608,6 +609,8 @@ def show_appointments(request):
             'd' : my_date,
             's' : slot,
         }
+        
+
         print(doctor_id , my_date , slot) 
         completed_appointments = bookedappointments.objects.filter(doctorid=doctor_id,date=my_date,slot=slot).exclude(status='no action taken')
 
