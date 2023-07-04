@@ -147,9 +147,9 @@ http://localhost:8000/
 
 ## Contributing
 Contributions to the OMCS project are always welcome! If you'd like to contribute, please write to us :
-    sathyasingabattu2004@gmail.com.
-    chityalaraviteja123@gmail.com
-    deulkardr@gmail.com
+-  sathyasingabattu2004@gmail.com
+-  chityalaraviteja123@gmail.com
+-  deulkardr@gmail.com
 
 ## License
 MIT License
