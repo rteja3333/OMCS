@@ -25,63 +25,6 @@ OMCS provides the following features for different user roles:
   - Receive email notifications for appointment confirmation and updates.
   - Manage personal information and update contact details.
 
-## Installation
-
-To install and run the OMCS application, follow these steps:
-
-1. Clone the repository:
-```bash
-git clone <repository-url>
-```
-
-2. Navigate to the project directory:
-```bash
-cd OMCS
-```
-
-3. Create a virtual environment:
-```bash
-python -m venv env
-```
-
-4. Activate the virtual environment:
-- For Windows:
-```bash
-env\Scripts\activate
-```
-- For Linux/macOS:
-```bash
-source env/bin/activate
-```
-
-5. Install the required dependencies:
-```bash
-pip install -r requirements.txt
-```
-
-## Usage
-
-1. Set up the database:
-```bash
-python manage.py migrate
-```
-
-2. Create a superuser (admin) account:
-```bash
-python manage.py createsuperuser
-```
-
-3. Run the development server:
-```bash
-python manage.py runserver
-```
-
-4. Access the OMCS application in your web browser:
-```bash
-http://localhost:8000/
-```
-
-
 ## Database
 
 OMCS utilizes SQLite3 as the default database for development purposes. If you wish to use a different database, modify the `settings.py` file in the `OMCS` directory and update the database settings accordingly.
@@ -142,16 +85,71 @@ The OMCS application relies on the following libraries:
 - SQLite3 (included with Django)
 - Other dependencies (specified in the `requirements.txt` file)
 
-You can install all the required libraries by running the following command:
+Make sure to use a compatible version of Python and update the dependencies as necessary.
 
+
+## Installation
+
+To install and run the OMCS application, follow these steps:
+
+1. Clone the repository:
+```bash
+git clone <repository-url>
+```
+
+2. Navigate to the project directory:
+```bash
+cd OMCS
+```
+
+3. Create a virtual environment:
+```bash
+python -m venv env
+```
+
+4. Activate the virtual environment:
+- For Windows:
+```bash
+env\Scripts\activate
+```
+- For Linux/macOS:
+```bash
+source env/bin/activate
+```
+
+5. Install the required dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-Make sure to use a compatible version of Python and update the dependencies as necessary.
+## Usage
+
+1. Set up the database:
+```bash
+python manage.py migrate
+```
+
+2. Create a superuser (admin) account:
+```bash
+python manage.py createsuperuser
+```
+
+3. Run the development server:
+```bash
+python manage.py runserver
+```
+
+4. Access the OMCS application in your web browser:
+```bash
+http://localhost:8000/
+```
+
 
 ## Contributing
-Contributions to the OMCS project are always welcome! If you'd like to contribute, please follow the guidelines outlined in the CONTRIBUTING.md file.
+Contributions to the OMCS project are always welcome! If you'd like to contribute, please write to us :
+sathyasingabattu2004@gmail.com.
+chityalaraviteja123@gmail.com
+deulkardr@gmail.com
 
 ## License
 MIT License
