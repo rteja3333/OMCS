@@ -91,7 +91,7 @@ OMCS utilizes SQLite3 as the default database for development purposes. If you w
 The file structure of the OMCS application is as follows:
 
 OMCS/
-├── OMCS/
+├── OMCS/\n
 │ ├── templates/
 │ ├── admin.py
 │ ├── apps.py
